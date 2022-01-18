@@ -24,8 +24,10 @@
   "homepage": "https://github.com/schoolv123/json-base#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
     "fs": "^0.0.1-security",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "ytdl-core": "^4.10.0"
   }
 }

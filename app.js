@@ -1,11 +1,13 @@
 import express from "express"
 import Api from './api/index.js'
-
+import Youtube from 'ytdl-core'
+import cors from 'cors'
 const port = 3000 || 3003
 const App = express()
 
 App.use(express.urlencoded({ extended: true }))
 App.use(express.json())
+App.use(cors())
 App.get('/', (req, res) => {
     res.json({
         status: true,
@@ -13,8 +15,9 @@ App.get('/', (req, res) => {
         data: null
     })
 })
-
+//api part link
 App.use("/api", Api)
+//youtube download part
 App.get('/ytdownload', async (req, res) => {
     let videoId = req.query.videoid
     // let url = "https://www.youtube.com/watch?v=" + videoId
