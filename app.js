@@ -2,7 +2,7 @@ import express from "express"
 import Api from './api/index.js'
 import Youtube from 'ytdl-core'
 import cors from 'cors'
-const port = 3000 || 3003
+const port = process.env.PORT || 3003
 const App = express()
 
 App.use(express.urlencoded({ extended: true }))
