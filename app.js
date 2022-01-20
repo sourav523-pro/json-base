@@ -28,6 +28,11 @@ App.get('/ytdownload', async (req, res) => {
     quality = quality.toLowerCase()
 
     try {
+        let info = await ytdl.getBasicInfo(url)
+        let filename = info.videoDetails.title + '.' + format
+        res.header('Content-Disposition', 'attachment; filename=' + filename)
+        res.header('Content-Type', 'mime/' + format)
+        res.header('Content-Transfer-Encoding', 'binary')
         Youtube(url, {
             format: format,
             quality: quality
