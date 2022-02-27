@@ -5,8 +5,8 @@ import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const App = Router();
-App.get('/youtube', (req, res) => {
-    res.sendFile(__dirname + '/src/index.html')
+App.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.htm')
 })
 const extractData = (req) => {
     let videoId = req.query.videoid || null
@@ -24,7 +24,7 @@ const extractData = (req) => {
         }
     }
 }
-App.get('/ytdownload', async (req, res) => {
+App.get('/download', async (req, res) => {
     let videoId = req.query.videoid
     // let url = "https://www.youtube.com/watch?v=" + videoId
     // let url = req.query.url
@@ -56,7 +56,7 @@ App.get('/ytdownload', async (req, res) => {
         }).pipe(res)
     }
 })
-App.get('/ytdownload/getinfo', async (req, res) => {
+App.get('/getinfo', async (req, res) => {
     let videoId = req.query.videoid || null
     let url = videoId ? "https://www.youtube.com/watch?v=" + videoId : req.query.url
     try {

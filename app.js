@@ -12,7 +12,7 @@ App.use(cors())
 App.get('/', (req, res) => {
     res.json({
         status: true,
-        message: "Welcome to jsonBase, enhance your application performance",
+        message: "Welcome to jsonBase, Register with us and enhance your application performance",
         data: null
     })
 })
