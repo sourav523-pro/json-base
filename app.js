@@ -1,8 +1,9 @@
 import express from "express"
-import Api from './api/index.js'
-import Youtube from 'ytdl-core'
 import cors from 'cors'
-const port = process.env.PORT || 3003
+import Api from './api/index.js'
+import Youtube from './youtube/index.js'
+import JsonServer from './jsonserver/index.js'
+const port = process.env.PORT || 5000
 const App = express()
 
 App.use(express.urlencoded({ extended: true }))
@@ -18,32 +19,10 @@ App.get('/', (req, res) => {
 //api part link
 App.use("/api", Api)
 //youtube download part
-App.get('/ytdownload', async (req, res) => {
-    let videoId = req.query.videoid
-    // let url = "https://www.youtube.com/watch?v=" + videoId
-    let url = req.query.url
-    let format = req.query.format || "mp4"
-    let quality = req.query.quality || "highest"
-    format = format.toLowerCase()
-    quality = quality.toLowerCase()
+App.use('/youtube', Youtube)
+//json server part 
+App.use('/json', JsonServer)
 
-    try {
-        let info = await ytdl.getBasicInfo(url)
-        let filename = info.videoDetails.title + '.' + format
-        res.header('Content-Disposition', 'attachment; filename=' + filename)
-        res.header('Content-Type', 'mime/' + format)
-        res.header('Content-Transfer-Encoding', 'binary')
-        Youtube(url, {
-            format: format,
-            quality: quality
-        }).pipe(res)
-    } catch (err) {
-        console.log(err)
-        Youtube(url, {
-            format: "mp4"
-        }).pipe(res)
-    }
-})
 
 App.listen(port, () => {
     console.log(`Express app running on port ${port}`)

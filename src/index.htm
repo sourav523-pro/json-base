@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sbot Youtube downloader</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center my-5">
+            <div class="col-md-9 col-lg-8 col-sm-10 col-xl-7">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <form id="ytdownload1">
+                            <div class="form-group">
+                                <label for="url-input">Enter video url hear</label>
+                                <input type="text" class="form-control" name="url" id="url-input"
+                                    placeholder="https://www.youtube.com/watch?v=Gkjh37gahs" />
+                            </div>
+                            <div class="form-groupy display-format" style="display: none">
+                                <label for="format">Select Format</label>
+                                <select id="format" name="format" class="form-select capitalize">
+                                </select>
+                            </div>
+                            <div class="text-center my-3">
+                                <button type="submit" id="download-video" class="btn btn-primary">Get Info</button>
+                            </div>
+                        </form>
+
+                        <!-- <form action="/ytdownload" id="ytdownload" method="get">
+                            <div class="form-group">
+                                <label for="url-input">Enter video url hear</label>
+                                <input type="text" class="form-control" name="url" id="url-input"
+                                    placeholder="https://www.youtube.com/watch?v=Gkjh37gahs" />
+                            </div>
+                            <div class="form-groupy display-format" style="display: none">
+                                <label for="format">Select Format</label>
+                                <select id="format" name="format" class="form-select capitalize">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="format">Select Format</label>
+                                <select id="format" name="format" class="form-select capitalize">
+                                    <optgroup label="Video">
+                                        <option value="video-mp4">MP4</option>
+                                        <option value="video-mov">MOV</option>
+                                        <option value="video-avi">AVI</option>
+                                        <option value="video-webm">WEBM</option>
+                                        <option value="video-mkv">MKV</option>
+                                        <option value="video-flv">FLV</option>
+                                    </optgroup>
+                                    <optgroup label="Audio">
+                                        <option value="audio-mp3">MP3</option>
+                                        <option value="audio-wav">WAV</option>
+                                        <option value="audio-wmv">WMV</option>
+                                        <option value="audio-ogg">OGG</option>
+                                        <option value="audio-aiff">AIFF</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="quality">Select Quality</label>
+                                <select id="quality" name="quality" class="form-select">
+                                    <option value="highest">Highest quality</option>
+                                    <option value="medium">Medium quality</option>
+                                    <option value="lowest">Lowest quality</option>
+                                    </optgroup>
+                                    <optgroup label="Audio only">
+                                        <option value="highestaudio">Highest audio quality</option>
+                                        <option value="lowestaudio">Lowest audio quality</option>
+                                    </optgroup>
+                                    <optgroup label="Video only">
+                                        <option value="highestvideo">Highest video quality</option>
+                                        <option value="lowestvideo">Lowest video quality</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                            <div class="text-center my-3">
+                                <button type="submit" id="download-video" class="btn btn-primary">Download</button>
+                            </div>
+                        </form> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('#ytdownload1').addEventListener('submit', (e) => {
+            e.preventDefault()
+            let url = document.getElementById('url-input').value
+            // let response = await fetch('/ytdownload/getinfo?url=' + url)
+            // let res = await response.json()
+            // res.then((data) => {
+            //     document.querySelector('.display-format').style = 'display:block'
+            // })
+            fetch('/ytdownload/getinfo?url=' + url)
+                .then(response => response.json())
+                .then(data => {
+                    let format = document.querySelector('#format')
+                    let prevFormat = ''
+                    let videoGroup = document.createElement('optgroup')
+                    videoGroup.label = "Video"
+                    let audioGroup = document.createElement('optgroup')
+                    audioGroup.label = "Audio"
+                    data.formats.map((val, index) => {
+                        let [type, code] = val.mimeType.split('; ')
+                        // let optionEle = document.createElement('option')
+                        // optionEle.value = val.qualityLabel
+                        // optionEle.innerHTML = val.qualityLabel
+                        if (type == 'video/mp4' && val.quality != prevFormat)
+                            videoGroup.appendChild(new Option(val.qualityLabel, val.quality))
+                        prevFormat = val.quality
+                    })
+                    audioGroup.appendChild(new Option('mp4a', 'mp4a'))
+                    audioGroup.appendChild(new Option('mp3', 'mp3'))
+                    audioGroup.appendChild(new Option('webm', 'webm'))
+                    format.appendChild(videoGroup)
+                    format.appendChild(audioGroup)
+                    // document.querySelector('#format').html = option
+                    document.querySelector('.display-format').style = 'display:block'
+                    console.log(data)
+                })
+            // console.log(data)
+            // let quality = document.getElementById('quality')
+            // let format = document.getElementById('format')
+        });
+    </script>
+</body>
+
+
+</html>
