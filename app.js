@@ -17,11 +17,11 @@ App.get('/', (req, res) => {
     })
 })
 //api part link
-App.use("/api", Api)
+App.use("/api/v1", Api)
 //youtube download part
 App.use('/youtube', Youtube)
 //json server part 
-App.use('/json', JsonServer)
+App.use('/api/v2', JsonServer)
 
 
 App.listen(port, () => {

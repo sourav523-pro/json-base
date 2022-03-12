@@ -3,8 +3,28 @@
     {
       "id": 1,
       "name": "Sourav Samanta",
-      "email": "samantasourav886@gmail.com"
+      "email": "samantasourav886@gmail.com",
+      "password": "test@123"
     }
   ],
-  "transactions": []
+  "transactions": [
+    {
+      "id": 95166,
+      "type": "expense",
+      "amount": 35,
+      "note": "Lunch",
+      "userId": 1,
+      "createdAt": "12/03/2022, 23:35:08",
+      "updatedAt": "12/03/2022, 23:35:08"
+    },
+    {
+      "id": 50173,
+      "type": "expense",
+      "amount": 20,
+      "note": "Egg for dinner",
+      "userId": 1,
+      "createdAt": "12/03/2022, 23:51:31",
+      "updatedAt": "12/03/2022, 23:51:31"
+    }
+  ]
 }
