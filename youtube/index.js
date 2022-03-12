@@ -35,7 +35,7 @@ App.get('/download', async (req, res) => {
     quality = quality.toLowerCase()
 
     try {
-        let info = await ytdl.getBasicInfo(url)
+        let info = await Youtube.getBasicInfo(url)
         let filename = info.videoDetails.title + '.' + format
         // res.header('Content-Disposition', 'attachment; filename=' + filename)
         // res.header('Content-Type', 'mime/' + format)
@@ -60,7 +60,7 @@ App.get('/getinfo', async (req, res) => {
     let videoId = req.query.videoid || null
     let url = videoId ? "https://www.youtube.com/watch?v=" + videoId : req.query.url
     try {
-        let info = await Youtube.getBasicInfo(url)
+        let info = await Youtube.getInfo(url)
         res.json({ ...info })
     } catch (err) {
         res.writeHead(500, err)
