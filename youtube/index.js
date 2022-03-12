@@ -31,12 +31,55 @@ App.get('/download', async (req, res) => {
     let url = videoId ? "https://www.youtube.com/watch?v=" + videoId : req.query.url
     let format = req.query.format || "mp4"
     let quality = req.query.quality || "highest"
+    let type = req.query.type || "video"
     format = format.toLowerCase()
     quality = quality.toLowerCase()
 
     try {
-        let info = await Youtube.getBasicInfo(url)
-        let filename = info.videoDetails.title + '.' + format
+        let filename = ''
+        if (req.query.name) {
+            filename = req.query.name + '.' + format
+        } else {
+            let info = await Youtube.getBasicInfo(url)
+            filename = info.videoDetails.title + '.' + format
+        }
+        res.set({
+            'Content-Type': type + '/' + format,
+            'Content-Disposition': "attachment; filename=" + contentDisposition(filename),
+            'Content-Transfer-Encoding': 'binary'
+        })
+        Youtube(url, {
+            format: format,
+            quality: quality
+        }).pipe(res)
+    } catch (err) {
+        console.log(err)
+        Youtube(url, {
+            format: "mp4"
+        }).pipe(res)
+    }
+})
+App.post('/download', async (req, res) => {
+    let videoId = req.query.videoid
+    // let url = "https://www.youtube.com/watch?v=" + videoId
+    // let url = req.query.url
+    let url = videoId ? "https://www.youtube.com/watch?v=" + videoId : req.query.url
+    let format = req.query.format || "mp4"
+    let quality = req.query.quality || "highest"
+    let type = req.query.type || "video"
+    format = format.toLowerCase()
+    quality = quality.toLowerCase()
+    console.log(req.query)
+
+    try {
+
+        let filename = ''
+        if (req.query.name) {
+            filename = req.query.name + '.' + format
+        } else {
+            let info = await Youtube.getBasicInfo(url)
+            filename = info.videoDetails.title + '.' + format
+        }
         // res.header('Content-Disposition', 'attachment; filename=' + filename)
         // res.header('Content-Type', 'mime/' + format)
         // res.header('Content-Transfer-Encoding', 'binary')

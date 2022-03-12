@@ -30,6 +30,6 @@
     "fs": "^0.0.1-security",
     "json-server": "^0.17.0",
     "nodemon": "^2.0.15",
-    "ytdl-core": "^4.10.1"
+    "ytdl-core": "^4.11.0"
   }
 }
