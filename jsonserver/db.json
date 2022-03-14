@@ -14,7 +14,7 @@
       "amount": 35,
       "note": "Lunch",
       "userId": 1,
-      "createdAt": "12/03/2022, 23:35:08",
+      "createdAt": "12/03/2022",
       "updatedAt": "12/03/2022, 23:35:08"
     },
     {
@@ -23,7 +23,7 @@
       "amount": 20,
       "note": "Egg for dinner",
       "userId": 1,
-      "createdAt": "12/03/2022, 23:51:31",
+      "createdAt": "12/03/2022",
       "updatedAt": "12/03/2022, 23:51:31"
     }
   ]
