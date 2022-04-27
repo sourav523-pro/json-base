@@ -49,6 +49,21 @@ api.post('/login', (req, res) => {
             })
         })
 })
+api.post('/register', (req, res) => {
+    callApi('register-user', 'post', defaultHeader, req.body, (data) => {
+        if (data.status)
+            res.status(200).json(data)
+        else
+            res.status(400).json(data)
+    },
+        (err) => {
+            res.status(400).json({
+                status: false,
+                data: [],
+                error: err
+            })
+        })
+})
 api.use('/transactions', middleware)
 api.get('/transactions', (req, res) => {
     // res.json(req)
