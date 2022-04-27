@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/schoolv123/json-base#readme",
   "dependencies": {
+    "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "content-disposition": "^0.5.4",
     "cors": "^2.8.5",

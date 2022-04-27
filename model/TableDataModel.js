@@ -12,7 +12,7 @@ export default class TableData {
     getData(id = null, hasCondition = false, condition = () => { }) {
         if (id != null && hasCondition) {
             return this.data.filter((obj) => {
-                if (condition(...obj) && obj.id == id) {
+                if (condition(obj) && obj.id == id) {
                     return obj
                 }
             })
@@ -21,7 +21,7 @@ export default class TableData {
             return this.data[this.dataId]
         } else if (hasCondition) {
             return this.data.filter((obj) => {
-                if (condition(...obj)) {
+                if (condition(obj)) {
                     return obj
                 }
             })
@@ -55,7 +55,7 @@ export default class TableData {
     }
     searchData(condition) {
         return this.data.filter((obj) => {
-            if (condition(...obj)) {
+            if (condition(obj)) {
                 return obj
             }
         })

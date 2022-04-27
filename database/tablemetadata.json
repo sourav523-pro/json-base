@@ -1,15 +1,1 @@
-[
-    {
-        "id": 8238,
-        "name": "data_store",
-        "parentId": 88696,
-        "structure": {
-            "id": 1,
-            "amount": 100,
-            "type": "income/expence/debts",
-            "reason": "",
-            "note": ""
-        },
-        "createdAt": "9/1/2022, 7:02:36 pm"
-    }
-]
+[{"id":81289,"name":"transactions","parentId":88696,"createdAt":"6/4/2022, 9:06:35 pm"},{"id":53617,"name":"users","parentId":88696,"createdAt":"6/4/2022, 9:07:01 pm"}]

@@ -36,7 +36,6 @@ const middleware = (req, res, next) => {
 }
 export default function TableDataController() {
     const router = Router()
-    router.use('/:tableName', middleware)
     router.get('/', (req, res) => {
         res.json({
             status: true,
@@ -44,11 +43,24 @@ export default function TableDataController() {
             data: null
         })
     })
+    router.use('/:tableName', middleware)
     router.get('/:tableName', (req, res) => {
         let dataId = req.query.id ?? null
         let tableMeta = req.tableMeta
         let table = new TableData(tableMeta.name, tableMeta.id)
-        let data = dataId ? table.getData(dataId) : table.getData()
+        let data = null
+        if (req.query.id !== null) {
+            data = table.getData(dataId)
+        }
+        // else if (Object.getOwnPropertyNames(req.query).length !== 0) {
+        //     data = table.getData(null, true, (obj) => {
+        //         return createdAt === req.query.createdAt
+        //     })
+        // }
+        else {
+            data = table.getData()
+        }
+        // let data = dataId ? table.getData(dataId) : table.getData()
         res.json({
             status: true,
             message: 'Table data',

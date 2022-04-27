@@ -1,6 +1,7 @@
 import express from "express"
 import cors from 'cors'
 import Api from './api/index.js'
+import Sbot from './sbot/index.js'
 import Youtube from './youtube/index.js'
 import JsonServer from './jsonserver/index.js'
 const port = process.env.PORT || 5000
@@ -22,6 +23,7 @@ App.use("/api/v1", Api)
 App.use('/youtube', Youtube)
 //json server part 
 App.use('/api/v2', JsonServer)
+App.use('/api/v3', Sbot)
 
 
 App.listen(port, () => {
